@@ -2,6 +2,8 @@ import matter from "gray-matter"
 import Head from "next/head"
 import Link from "next/link"
 
+import styles from "../../styles/BlogIndex.module.css"
+
 interface Post {
   frontmatter: {
     date: string
@@ -23,6 +25,7 @@ const BlogIndex = ({ posts, ...props }) => {
         <title>Blog | Fumiaki Yoshimatsu</title>
       </Head>
       <main>
+        <h1 className={styles.heading}>Blog</h1>
         <Posts posts={posts} />
       </main>
     </>
@@ -30,12 +33,22 @@ const BlogIndex = ({ posts, ...props }) => {
 }
 
 function Posts(props: PostsProps) {
-  return (<ul>
+  return (<ul className={styles.list}>
     {
       props.posts.map(post =>
-        <li key={post.frontmatter.epoch}>
+        <li key={post.frontmatter.epoch} className={styles.card}>
           <Link href={{ pathname: `${post.frontmatter.slug}` }}>
-            <a>{post.frontmatter.title}</a>
+            <div className={styles.cardContent}>
+              <h2 className={styles.title}>{post.frontmatter.title}</h2>
+              <div className={styles.excerpt}>
+                {
+                  post.markdownBody.length > 200
+                     ? `${post.markdownBody.substring(0, 200)}...`
+                     : post.markdownBody
+                }
+              </div>
+              <div className={styles.date}>{post.frontmatter.date}</div>
+            </div>
           </Link>
         </li>
       )
@@ -52,7 +65,7 @@ export async function getStaticProps() {
       return {
         frontmatter: document.data,
         markdownBody: document.content
-      }      
+      }
     }).sort((a, b) => b.frontmatter.epoch - a.frontmatter.epoch)
     return data
   })(require["context"]('../../posts', true, /\.md$/))

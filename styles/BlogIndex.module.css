@@ -1,0 +1,39 @@
+.heading {
+  width: 60%;
+  margin: 1.2em auto;
+}
+
+.list {
+  width: 60%;
+  margin: 0 auto;
+  list-style: none;
+}
+
+.card {
+  box-shadow: 0 2px 2px 0 #e0e0e0;
+  box-sizing: border-box;
+  border-radius: 4px;
+  padding: 1em;
+  margin: 1em;
+}
+
+.cardContent {
+  cursor: pointer;
+}
+
+.title {
+  font-size: 2em;
+  font-weight: 600;
+  text-decoration: none;
+  color: #222222;
+}
+
+.excerpt {
+  margin-top: 2em;
+}
+
+.date {
+  margin-top: 1em;
+  color: #AAAAAA;
+  text-align: right;
+}

@@ -5,11 +5,8 @@
 }
 
 body {
-  background-color: #222222;
-  color: #DDDDDD;
   height: calc(100vh - 4em);
   width: calc(100vw - 4em);
-  padding: 2em;
 }
 
 #__next {
