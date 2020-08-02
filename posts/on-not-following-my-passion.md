@@ -4,7 +4,7 @@ date: "Mon, 06 Oct 2014 19:43:50 GMT"
 title: "On not following my passion"
 epoch: "1412624630"
 ---
-        
+
 Mike Rowe’s response to why he thought people should not follow his/her passion is getting a buzz. To simply summarize it, he argues that one should not follow one’s passion for too long because many if not most cannot reach there anyway; and he believes those people should see it earlier rather than later to make their lives happier.
 
 I am not rich. I am not even close to be rich at all. I am not what I thought I would want to be when I was younger. I wanted to be a journalist. I wanted to make my living by telling others stories from the rest of the world in “a journalistic way”. But I wasn’t able to even start my carrier as a journalist. I was employed by a systems integrator after I failed all of my applications to most of the newspaper publishers in Japan when I graduated school.

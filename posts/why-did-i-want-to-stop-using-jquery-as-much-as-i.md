@@ -4,7 +4,8 @@ date: "Sun, 16 Feb 2014 21:01:02 GMT"
 title: "Why did I want to stop using jQuery as much as I can and move on to AngularJS"
 epoch: "1392584462"
 ---
-        
+
+
 I didn’t like to use jQuery very much when I started building Peatix. What I didn’t like most was the fact that by merely writing $(’.class-yeah-its-just-a-marker’) you could jump here from there and everywhere. I am a crazy old man. I learned how to program by learning Structured Programming. Yes, that “avoid goto, everything you write you can write in a sequence, loop or conditional blocks”. Yeah I am old. What are you looking at?
 
 To me jQuery selector is a GOTO in BASIC (and any other languages). It’s actually a feature that only advanced programmers can use it correctly for a few correct reasons. Yet similar to GOTO in BASIC, it is always those someones who are not real programmers who don’t have solid understanding of whatever programming paradigm who tend to use jQuery. And the code written by those someones breaks my beautifully structured, object oriented, whatever what'ed code.

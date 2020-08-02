@@ -4,7 +4,8 @@ date: "Thu, 06 Mar 2014 04:12:10 GMT"
 title: "My first public presentation in English"
 epoch: "1394079130"
 ---
-        
+
+
 Due to our CEO’s absence, I took the stage of one of the greatest meetup around the world, New York Tech Meetup last night, to introduce ColorSync. You can watch it here until it would be taken down (I’ll appear at around 31:10).
 
 [http://mlb.mlb.com/media/player/entry.jsp?calendar\_event\_id=14-403620-2014-03-04&source=NYTM](http://mlb.mlb.com/media/player/entry.jsp?calendar_event_id=14-403620-2014-03-04&source=NYTM)

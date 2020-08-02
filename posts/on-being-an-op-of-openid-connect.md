@@ -4,7 +4,8 @@ date: "Sun, 16 Mar 2014 21:43:57 GMT"
 title: "On being an OP of OpenID Connect"
 epoch: "1395006237"
 ---
-        
+
+
 The more I understand OpenID Connect, the more I understand that it is really only for those few big guys, when it comes to a server implementation.
 
 Looking at some code and spec and it sounds easy to be an Open ID provider (i.e. a server), for it’s as simple as implementing OAuth2 server. But this id\_token thing is new for me. I got used to using Facebook’s signed\_request, but only as a client or a relying party. Now when it comes to becoming a server, it seems you must implement this mechanism by yourself.

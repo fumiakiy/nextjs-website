@@ -4,7 +4,8 @@ date: "Sat, 25 Apr 2015 23:04:24 GMT"
 title: "Butter Knife vs Android Annotations"
 epoch: "1430003064"
 ---
-        
+
+
 There was a tech conference geared towards Android app developers, #DroidKaigi in Japan. I wasn’t able to attend unfortunately because it happened in Tokyo while I was in New York, but thanks to the folks who share most everything to the Internet, I could feel how it went. It sounds it went really well. Congratulations to the event organizers.
 
 One thing that got me when I was reading those blogs and summaries about the conference was that [Butter Knife](http://jakewharton.github.io/butterknife/) sounded more popular and better loved by them than [Android Annotations](http://androidannotations.org/). I just sent a new Android app to our quality assurance process. The app was completely written from scratch by myself, which uses Android Annotations everywhere and I was a little concerned that I might have chosen the wrong library (again…?).

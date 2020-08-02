@@ -4,7 +4,8 @@ date: "Fri, 29 Aug 2014 18:52:00 GMT"
 title: "Microservices, history iterates, etc"
 epoch: "1409338320"
 ---
-        
+
+
 It was in an episode of [#rebuildfm](http://rebuild.fm) where I heard the term [microservices](http://martinfowler.com/articles/microservices.html) for the first time. It sounded nothing new to me, but it’s among the latest buzzwords.
 
 Inter process communication

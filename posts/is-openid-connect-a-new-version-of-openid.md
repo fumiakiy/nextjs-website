@@ -4,7 +4,8 @@ date: "Sun, 09 Mar 2014 19:34:00 GMT"
 title: "Is OpenID Connect a new version of OpenID?"
 epoch: "1394393640"
 ---
-        
+
+
 Short answer: who cares?
 
 Tl;dr; no.

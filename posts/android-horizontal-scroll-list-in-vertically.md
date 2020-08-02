@@ -4,7 +4,8 @@ date: "Thu, 30 Apr 2015 16:07:59 GMT"
 title: "[Android] Horizontal scroll list in vertically scrolling list, and how to handle “ItemClick” event fired by each item"
 epoch: "1430410079"
 ---
-        
+
+
 One thing I would have liked to implement in the all new Peatix Android app was this idea of “Home” screen. It shows what are relevant to you regardless of what type of objects they are. Very much like Google Now, which shows many different types of “cards” in one list.
 
 In the list, I want to show as many “stuff” as possible in a small screen of a phone. The app could list things like tickets you have got, list of events the app recommends to you, tweets and FB posts related to an event you are going, etc etc. Lining up all of these items vertically in a scrolling view is an okay-idea; but it’s pretty obvious that the latter an item is listed, the latter it’s going to be actually seen (or to impress the user). As of this writing, Facebook and Twitter both put relevant items in vertically scrolling list, while some items (mostly Ads, some photos if there are many) occupies only a height of an item while showing many child items in horizontally scrolling list. I would have liked that in my app too.

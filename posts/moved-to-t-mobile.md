@@ -4,7 +4,8 @@ date: "Sun, 09 Feb 2014 20:54:00 GMT"
 title: "Moved to T-Mobile"
 epoch: "1391979240"
 ---
-        
+
+
 I have been on Straight Talk $45 plan for two months after I got a Nexus 5. It has been very fine (I’m in Manhattan, New York most of the time) but I used the line in a very limited amount of time.
 
 I also see that I will be accompanied by someone daily real soon, which means she will also need a phone line. Then I remembered [the post by Tatsuhiko about how T-Mobile was awesome](http://weblog.bulknews.net/post/68863788422/t-mobile-global-roaming-awesome). We will also occasionally go abroad (Japan mostly), and I have already had issues that I haven’t had a cell phone line while I was in Tokyo several times by now. If T-Mobile family plan with unlimited international roaming (data and text) works for him, it should work well for us too.
