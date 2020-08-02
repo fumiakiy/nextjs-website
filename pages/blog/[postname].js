@@ -1,7 +1,8 @@
 import Head from 'next/head'
-import Link from "next/link"
 import matter from "gray-matter"
 import ReactMarkdown from "react-markdown"
+
+import styles from "../../styles/BlogPost.module.css"
 
 export default function BlogPost({ frontmatter, markdownBody }) {
   if (!frontmatter) return <></>
@@ -12,15 +13,14 @@ export default function BlogPost({ frontmatter, markdownBody }) {
         <title>{frontmatter.title}</title>
         <meta name="description" content="{formatter.body}" />
       </Head>
-      <Link href="/blog">
-        <a>Back to post list</a>
-      </Link>
-      <article>
-        <h1>{frontmatter.title}</h1>
-        <div>
-          <ReactMarkdown source={markdownBody} />
-        </div>
-      </article>
+      <div className="blog">
+        <article className={styles.article}>
+          <h1>{frontmatter.title}</h1>
+          <div className={styles.body}>
+            <ReactMarkdown source={markdownBody} />
+          </div>
+        </article>
+      </div>
     </>
   )
 }
