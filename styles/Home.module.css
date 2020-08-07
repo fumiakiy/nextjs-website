@@ -1,7 +1,7 @@
 .root {
   display: flex;
   align-items: center;
-  height: 100%;
+  height: calc(100% - 4em);
   background-color: #222222;
   color: #DDDDDD;
   padding: 2em;

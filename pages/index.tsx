@@ -20,7 +20,7 @@ export default function Home() {
             <li><a href="https://fumiakiy.tumblr.com">tumblr</a></li>
             <li><a href="https://medium.com/@fumiakiy">Medium</a></li>
             <li><a href="https://linkedin.com/in/fumiakiy">LinkedIn</a></li>
-            <li><a href="resume/index.html">Resume</a></li>
+            <li><a href="resume.html">Resume</a></li>
           </ul>
         </div>
       </div>

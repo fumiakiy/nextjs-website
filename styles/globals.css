@@ -5,8 +5,8 @@
 }
 
 body {
-  height: calc(100vh - 4em);
-  width: calc(100vw - 4em);
+  height: calc(100vh);
+  width: calc(100vw);
 }
 
 #__next {
