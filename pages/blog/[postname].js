@@ -21,14 +21,33 @@ export default function BlogPost({ frontmatter, markdownBody }) {
     <>
       <Head>
         <title>{frontmatter.title}</title>
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@fumiakiy" />
+        <meta name="og:title" content={frontmatter.title} />
+        <meta name="twitter:title" content={frontmatter.title} />
         {
           !!frontmatter.excerpt
             ? <meta name="description" content={frontmatter.excerpt} />
             : null
         }
         {
+          !!frontmatter.excerpt
+            ? <meta name="og:description" content={frontmatter.excerpt} />
+            : null
+        }
+        {
+          !!frontmatter.excerpt
+            ? <meta name="twitter:description" content={frontmatter.excerpt} />
+            : null
+        }
+        {
           !!frontmatter.ogImage
             ? <meta property="og:image" content={`https://luckypines.com${frontmatter.ogImage}`} />
+            : null
+        }
+        {
+          !!frontmatter.ogImage
+            ? <meta property="twitter:image" content={`https://luckypines.com${frontmatter.ogImage}`} />
             : null
         }
       </Head>
