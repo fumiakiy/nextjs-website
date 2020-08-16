@@ -1,13 +1,23 @@
-.blog img {
+.blog article {
+  overflow: hidden;
+}
+
+.blog .image-container img {
   padding: 2%;
   max-width: 96%;
+}
+
+.blog .image-container .image-caption {
+  text-align: center;
+  font-size: small;
+  margin-top: 0;
 }
 
 .blog h2,
 .blog h3,
 .blog blockquote,
 .blog ol,
-.blog p,
+.blog div,
 .blog pre {
     margin-top: 1.4em;
 }
@@ -19,7 +29,7 @@
 .blog a,
 .blog a:visited,
 .blog a:hover {
-    color: #529ecc;
+    color: #000000;
 }
 
 .blog li {
@@ -39,4 +49,17 @@
   color: #2b2b2b;
   font-family: monospace;
   font-size: small;
+}
+
+.blog code {
+  font-family: monospace;
+  background-color: #efeeee;
+  padding: 0.2em 0.4em;
+}
+
+.blog pre code {
+  background-color: #dcdddd;
+  color: #2b2b2b;
+  padding: 0;
+  font-size: larger;
 }

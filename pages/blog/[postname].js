@@ -7,17 +7,36 @@ import styles from "../../styles/BlogPost.module.css"
 export default function BlogPost({ frontmatter, markdownBody }) {
   if (!frontmatter) return <></>
 
+  const renderers = {
+    image: props => (
+      <div className="image-container">
+        <img src={props.src} alt={props.alt} />
+        <div className="image-caption">{props.alt}</div>
+      </div>
+    ),
+    paragraph: "div"
+  }
+
   return (
     <>
       <Head>
         <title>{frontmatter.title}</title>
-        <meta name="description" content="{formatter.body}" />
+        {
+          !!frontmatter.excerpt
+            ? <meta name="description" content={frontmatter.excerpt} />
+            : null
+        }
+        {
+          !!frontmatter.ogImage
+            ? <meta property="og:image" content={`https://luckypines.com${frontmatter.ogImage}`} />
+            : null
+        }
       </Head>
       <div className="blog">
         <article className={styles.article}>
           <h1>{frontmatter.title}</h1>
           <div className={styles.body}>
-            <ReactMarkdown source={markdownBody} />
+            <ReactMarkdown source={markdownBody} renderers={renderers} />
           </div>
         </article>
       </div>

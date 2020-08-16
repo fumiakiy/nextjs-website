@@ -17,7 +17,7 @@ export default function Home() {
           <ul className={styles.links}>
             <li><a href="https://github.com/fumiakiy">GitHub</a></li>
             <li><a href="https://twitter.com/fumiakiy">Twitter</a></li>
-            <li><a href="https://fumiakiy.tumblr.com">tumblr</a></li>
+            <li><a href="/blog">Blog</a></li>
             <li><a href="https://medium.com/@fumiakiy">Medium</a></li>
             <li><a href="https://linkedin.com/in/fumiakiy">LinkedIn</a></li>
             <li><a href="resume.html">Resume</a></li>
