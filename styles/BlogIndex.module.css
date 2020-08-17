@@ -9,6 +9,12 @@
   list-style: none;
 }
 
+@media (max-width: 640px) {
+  .list {
+    width: 100%;
+  }
+}
+
 .card {
   box-shadow: 0 1px 4px rgba(230, 230, 230, 1);
   box-sizing: border-box;

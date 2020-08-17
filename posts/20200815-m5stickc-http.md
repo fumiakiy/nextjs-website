@@ -7,7 +7,7 @@ excerpt: "実際はSonoff Basic R3が楽しかったので味をしめて、何�
 ogImage: "/images/m5stickc.png"
 ---
 
-[Sonoff Basic R3で電源コードにWifi経由でコマンドを送れる](https://medium.com/@fumiakiy/f5498b92027b)ようになって数ヶ月。以前に比べて進化した生活を送れてはいるものの、一つとてもめんどくさいことがある。Apple開発者プログラムに年間購読料を納めないと、iOSアプリのProvisioning Profileが一週間でexpireすること。なんで配布するわけでもないアプリを自分のiPhoneでだけ使うために年間1万円もお布施せねばならんのだ。初詣のお賽銭でもそんなに払わないのに。
+[Sonoff Basic R3で電源コードにWifi経由でコマンドを送れる](/blog/2020-05-23_Sonoff-Basic-R3-------------------f5498b92027b)ようになって数ヶ月。以前に比べて進化した生活を送れてはいるものの、一つとてもめんどくさいことがある。Apple開発者プログラムに年間購読料を納めないと、iOSアプリのProvisioning Profileが一週間でexpireすること。なんで配布するわけでもないアプリを自分のiPhoneでだけ使うために年間1万円もお布施せねばならんのだ。初詣のお賽銭でもそんなに払わないのに。
 
 とかいいつつ、実際は[Sonoff Basic R3](https://sonoff.tech/product/wifi-diy-smart-switches/basicr3)が楽しかったので味をしめて、何かIoT的なおもちゃでもっと遊べないかなあと思っていた。Sonoff Basic R3を調べる中で、要するにおもしろいのは[ESP32というWifiとBluetoothが入ったマイクロコンピュータ](https://www.espressif.com/en/products/socs/esp32)であるのがわかったので、[ESP32の開発ボード](https://www.espressif.com/en/products/devkits)を眺めては何かできないかなあと。
 

@@ -3,6 +3,12 @@
   margin: 2em auto;
 }
 
+@media (max-width: 640px) {
+  .article {
+    width: 90%;
+  }
+}
+
 .body {
   line-height: 1.6em;
 }
