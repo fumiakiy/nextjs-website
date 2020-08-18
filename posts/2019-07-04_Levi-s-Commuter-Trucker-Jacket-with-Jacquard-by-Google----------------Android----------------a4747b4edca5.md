@@ -10,15 +10,15 @@ excerpt: "Tensorflowで作ったモデルをTensorflow Liteのモデルに変換
 
 ### TensorflowのモデルをTensorflow Liteのモデルに変換したい
 
-[/blog/2019-06-15_Levi-s-Commuter-Trucker-Jacket-with-Jacquard-by-Google----------------1ae6347c67fc](前回なんとなく雰囲気で作ったTensorflowのモデル)をAndroidアプリで利用するには、まずTensorflowで訓練したモデルをTensorflow Liteで読めるものに変換しなければならない。[https://www.tensorflow.org/lite/convert](ドキュメント)にはなんだかサラッと[https://www.tensorflow.org/lite/convert/cmdline_examples](コマンドで変換できそうなことが書いてある)のでやってみる。
+[前回なんとなく雰囲気で作ったTensorflowのモデル](/blog/2019-06-15_Levi-s-Commuter-Trucker-Jacket-with-Jacquard-by-Google----------------1ae6347c67fc)をAndroidアプリで利用するには、まずTensorflowで訓練したモデルをTensorflow Liteで読めるものに変換しなければならない。[ドキュメント](https://www.tensorflow.org/lite/convert)にはなんだかサラッと[コマンドで変換できそうなことが書いてある](https://www.tensorflow.org/lite/convert/cmdline_examples)のでやってみる。
 
-入力としてモデルを渡すのでまずモデルをシリアライズしてファイルにする。[https://www.tensorflow.org/api_docs/python/tf/estimator/DNNClassifier#export_saved_model](DNNClassifierにはexport_saved_modelっていうメソッドがある)のでこれを呼べばいいんだろうが、こいつに渡す引数がよくわからない。DNNClassifier savedmodelあたりでググり倒してようやく[https://stackoverflow.com/a/55737532](それっぽいコードを見つけた)のだが、これは直接Tensorflow Liteのクラスとメソッドを使ってインメモリのオブジェクトを変換する方法で、いやまあ別に動けばいいんだけども、渡しているものも何が何だかわからん。加えて、モデルを作る過程では一切出てこないセッションだのグラフだのというオブジェクトを「そこにある」前提で扱うコードになっている。`dnn/input_from_feature_columns/input_layer/concat:0`とか`dnn/logits/BiasAdd:0`とか一体どこから出てきたのか。
+入力としてモデルを渡すのでまずモデルをシリアライズしてファイルにする。[DNNClassifierにはexport_saved_modelっていうメソッドがある](https://www.tensorflow.org/api_docs/python/tf/estimator/DNNClassifier#export_saved_model)のでこれを呼べばいいんだろうが、こいつに渡す引数がよくわからない。DNNClassifier savedmodelあたりでググり倒してようやく[それっぽいコードを見つけた](https://stackoverflow.com/a/55737532)のだが、これは直接Tensorflow Liteのクラスとメソッドを使ってインメモリのオブジェクトを変換する方法で、いやまあ別に動けばいいんだけども、渡しているものも何が何だかわからん。加えて、モデルを作る過程では一切出てこないセッションだのグラフだのというオブジェクトを「そこにある」前提で扱うコードになっている。`dnn/input_from_feature_columns/input_layer/concat:0`とか`dnn/logits/BiasAdd:0`とか一体どこから出てきたのか。
 
 ### Tensorflow Liteで予測してみる
 
-とりあえず上記のコードを[https://gist.github.com/fumiakiy/c1f8fe23b36b0a8984a12cd2bb54cd0e](前回のスクリプト)へコピペして、classifierのtrainをした後で呼び出してみると、確かにconverted_model.tfliteファイルができあがるので、ひとまずこれをTensorflow Liteで推測に使ってみることにした。Tensorflow LiteのドキュメントをみるとPythonでも使えるぽいので、ひとまずスクリプトを書いてみる。
+とりあえず上記のコードを[前回のスクリプト](https://gist.github.com/fumiakiy/c1f8fe23b36b0a8984a12cd2bb54cd0e)へコピペして、classifierのtrainをした後で呼び出してみると、確かにconverted_model.tfliteファイルができあがるので、ひとまずこれをTensorflow Liteで推測に使ってみることにした。Tensorflow LiteのドキュメントをみるとPythonでも使えるぽいので、ひとまずスクリプトを書いてみる。
 
-Tensorflow LiteのドキュメントではInterpreterオブジェクトを作ってrunメソッドを呼び出せば結果がoutput引数に返されるぽいことが書いてあるのだが、PythonのInterpreterオブジェクトにはrunメソッドがない。[https://stackoverflow.com/a/51093144](ググって見つけたこのコード)にしたがって、[https://gist.github.com/fumiakiy/a86a834352c1c2c5a8305e46b3a5e751](input_dataだけ自前の配列に変えたスクリプト)を書いて実行してみる。
+Tensorflow LiteのドキュメントではInterpreterオブジェクトを作ってrunメソッドを呼び出せば結果がoutput引数に返されるぽいことが書いてあるのだが、PythonのInterpreterオブジェクトにはrunメソッドがない。[ググって見つけたこのコード](https://stackoverflow.com/a/51093144)にしたがって、[input_dataだけ自前の配列に変えたスクリプト](https://gist.github.com/fumiakiy/a86a834352c1c2c5a8305e46b3a5e751)を書いて実行してみる。
 
 ```
 $ python tflite1.py
@@ -110,11 +110,11 @@ $ python tflite1.py
 [{‘index’: 51, ‘shape’: array([1, 8], dtype=int32), ‘quantization’: (0.0, 0L), ‘name’: ‘dnn/head/predictions/probabilities’, ‘dtype’: &lt;type ‘numpy.float32’&gt;}]
 ```
 
-ここまで試行錯誤を重ねて、あとはtrainingのstep数やhidden_unitsの中身やらをあれこれいじってモデルを作り直して、また変換して[https://gist.github.com/fumiakiy/a86a834352c1c2c5a8305e46b3a5e751](tflite1.py)を実行してみて、というのを繰り返してみたが、なんとも今一つの結果しか得られない。らちが開かないので、Tensorflow Liteへの変換過程を変えて、Saved Modelとやらにエクスポートすればもう少しそのファイルに何か書いてあるんじゃなかろうかと、DNNClassifierのexport_saved_modelを呼ぶ方法を探すことにした。
+ここまで試行錯誤を重ねて、あとはtrainingのstep数やhidden_unitsの中身やらをあれこれいじってモデルを作り直して、また変換して[tflite1.py](https://gist.github.com/fumiakiy/a86a834352c1c2c5a8305e46b3a5e751)を実行してみて、というのを繰り返してみたが、なんとも今一つの結果しか得られない。らちが開かないので、Tensorflow Liteへの変換過程を変えて、Saved Modelとやらにエクスポートすればもう少しそのファイルに何か書いてあるんじゃなかろうかと、DNNClassifierのexport_saved_modelを呼ぶ方法を探すことにした。
 
 ### TensorflowのDNNClassifierをSavedModelとして出力する
 
-もう一度「DNNClassifier “saved model”」あたりでググっていくつかそれっぽいサンプルを見ていてようやく[http://shzhangji.com/blog/2018/05/14/serve-tensorflow-estimator-with-savedmodel/](この記事)の中にコピペできそうなコードを見つけた。早速ちょいちょい書き換えて実行してみる。
+もう一度「DNNClassifier “saved model”」あたりでググっていくつかそれっぽいサンプルを見ていてようやく[この記事](http://shzhangji.com/blog/2018/05/14/serve-tensorflow-estimator-with-savedmodel/)の中にコピペできそうなコードを見つけた。早速ちょいちょい書き換えて実行してみる。
 
 ```
 def export_tflite2(classifier, data):
@@ -153,7 +153,7 @@ $ saved_model_cli show --dir export/1562177753 --all
 …
 ```
 
-これは良いものなのでは? 早速[https://www.tensorflow.org/lite/convert/cmdline_examples](tflite_convertコマンド)にかけて、Tensorflow Liteのモデルに変換してみる。
+これは良いものなのでは? 早速[tflite_convertコマンド](https://www.tensorflow.org/lite/convert/cmdline_examples)にかけて、Tensorflow Liteのモデルに変換してみる。
 
 ```
 $ tflite_convert --output_file=./model1.tflite --saved_model_dir=export/1562177753
@@ -161,7 +161,7 @@ $ tflite_convert --output_file=./model1.tflite --saved_model_dir=export/15621777
 Some of the operators in the model are not supported by the standard TensorFlow Lite runtime. If those are native TensorFlow operators, you might be able to use the extended runtime by passing — enable_select_tf_ops, or by setting target_ops=TFLITE_BUILTINS,SELECT_TF_OPS when calling tf.lite.TFLiteConverter(). Otherwise, if you have a custom implementation for them you can disable this error with — allow_custom_ops, or by setting allow_custom_ops=True when calling tf.lite.TFLiteConverter(). Here is a list of builtin operators you are using: CONCATENATION, EXPAND_DIMS, FULLY_CONNECTED, PACK, RESHAPE, SHAPE, SOFTMAX, STRIDED_SLICE, TILE. Here is a list of operators for which you will need custom implementations: AsString, ParseExample.
 ```
 
-Tensorflow Liteのランタイムには存在しないオペレーター(ここではAsStringとParseExample)を使っているので、変換できませんと。使っているのは誰なのかもよくわからんので、とにかくググる。[https://stackoverflow.com/a/55693825](ParseExampleに関しては、このSOの答え)が見つかった。export_saved_modelするときのやり方を少し変えればいいっぽい。やってみる。
+Tensorflow Liteのランタイムには存在しないオペレーター(ここではAsStringとParseExample)を使っているので、変換できませんと。使っているのは誰なのかもよくわからんので、とにかくググる。[ParseExampleに関しては、このSOの答え](https://stackoverflow.com/a/55693825)が見つかった。export_saved_modelするときのやり方を少し変えればいいっぽい。やってみる。
 
 ```
 # feature_columns = []
@@ -213,7 +213,7 @@ ValueError: Didn’t find custom op for name ‘AsString’ with version 1
 Registration failed.
 ```
 
-AsStringなんて簡単に実装できるんじゃないのかと思って[https://www.tensorflow.org/lite/guide/ops_custom](custom operatorを自分で実装する方法のドキュメント)を読んでみたけども、C++で書いてTensorflow全体をビルドしなおすってこと? よくわからんが手に負えなさそうなのでやめて、AsStringを使わないような変換を行う方法を探してみる。
+AsStringなんて簡単に実装できるんじゃないのかと思って[custom operatorを自分で実装する方法のドキュメント](https://www.tensorflow.org/lite/guide/ops_custom)を読んでみたけども、C++で書いてTensorflow全体をビルドしなおすってこと? よくわからんが手に負えなさそうなのでやめて、AsStringを使わないような変換を行う方法を探してみる。
 
 もう一度saved_model_cliを実行してみると、中にDT_STRING型の値を出力するtensorがあるのを見つけた。
 
@@ -246,7 +246,7 @@ ValueError: Invalid tensors ‘dnn/head/predictions/probabilities:0’ were foun
 $ tflite_conver --output_file=./model1.tflite --saved_model_signature_key=”predict” --saved_model_dir=export/1562179024 --output_array=dnn/head/predictions/probabilities
 ```
 
-できた。おお、できたよ。再度[https://gist.github.com/fumiakiy/a86a834352c1c2c5a8305e46b3a5e751](Tensorflow Liteで予測するスクリプト)を実行してみると実行自体はできた。出力は相変わらず意味がよくわからないけど。
+できた。おお、できたよ。再度[Tensorflow Liteで予測するスクリプト](https://gist.github.com/fumiakiy/a86a834352c1c2c5a8305e46b3a5e751)を実行してみると実行自体はできた。出力は相変わらず意味がよくわからないけど。
 
 ```
 $ python tflite1.py
@@ -263,7 +263,7 @@ $ python tflite1.py
 
 何か変だなと思っていたのは、LiteではないTensorflowのclassifierを使ったテストではそれなりに当たりの予測を出すことが多いのに、なぜかLiteになると全然当たらないということ。渡している入力値がおかしいんだろうか。
 
-もう一度saved_model_cliの出力を見直すと、saved modelを使っていなかったときのコード(Tensorflow Liteのクラスとメソッドを使ってclassifierオブジェクトを直接変換したコード)では入力tensorとして「dnn/input_from_feature_columns/input_layer/concat」を使っていて、それに対して現状のsaved_model_cliの出力の中にはそういう入力tensorは存在せず、代わりに「Const_1」「Const_2」というtensorが全部で51個あるのがわかった。**51個**。これはこっちが渡そうとしている1つ1つのデータを入れる場所に違いないので、ループでset_tensorしている今のコードで大丈夫のはず…なんだけど、[https://gist.github.com/fumiakiy/a86a834352c1c2c5a8305e46b3a5e751](input_details[i][‘index’]と、配列の添字ではなくあえてオブジェクトのindexキーを使ってデータをセットしている)のはなんでなんだろう、と思いついて、input_detailsの中身をダンプしてみると、
+もう一度saved_model_cliの出力を見直すと、saved modelを使っていなかったときのコード(Tensorflow Liteのクラスとメソッドを使ってclassifierオブジェクトを直接変換したコード)では入力tensorとして「dnn/input_from_feature_columns/input_layer/concat」を使っていて、それに対して現状のsaved_model_cliの出力の中にはそういう入力tensorは存在せず、代わりに「Const_1」「Const_2」というtensorが全部で51個あるのがわかった。**51個**。これはこっちが渡そうとしている1つ1つのデータを入れる場所に違いないので、ループでset_tensorしている今のコードで大丈夫のはず…なんだけど、[input_details[i][‘index’]と、配列の添字ではなくあえてオブジェクトのindexキーを使ってデータをセットしている](https://gist.github.com/fumiakiy/a86a834352c1c2c5a8305e46b3a5e751)のはなんでなんだろう、と思いついて、input_detailsの中身をダンプしてみると、
 
 ```
 [

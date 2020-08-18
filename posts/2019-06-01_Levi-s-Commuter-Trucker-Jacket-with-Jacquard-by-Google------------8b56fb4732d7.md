@@ -10,7 +10,7 @@ excerpt: "スマートジャケットからの情報を得て何かするAndroid
 
 ### LEDを思いどおりに光らせる
 
-[/blog/2019-05-12_Android----------Bluetooth------------5844e20b5b98](前回)までで書いたとおり、公式アプリとsnap tagとの通信をWiresharkでのぞいて見て、同じ値を自作アプリから同じBluetooth serviceの同じcharacteristicに送りつけてみたら同じように光ったので、同様の手順で公式アプリがサポートしている3種類の光らせ方とその値をメモってみた。すると、一部だけ異なる値を送っていることがわかった。何度も同じ光らせ方をさせてみると、その度に変わる部分と、光らせ方が同じなら変わらない部分があることもわかった。そういうわけで、こういう単純なコードで、3種類のうちから希望の光らせ方をする値を作って送りつけることはできるようになった。
+[前回](/blog/2019-05-12_Android----------Bluetooth------------5844e20b5b98)までで書いたとおり、公式アプリとsnap tagとの通信をWiresharkでのぞいて見て、同じ値を自作アプリから同じBluetooth serviceの同じcharacteristicに送りつけてみたら同じように光ったので、同様の手順で公式アプリがサポートしている3種類の光らせ方とその値をメモってみた。すると、一部だけ異なる値を送っていることがわかった。何度も同じ光らせ方をさせてみると、その度に変わる部分と、光らせ方が同じなら変わらない部分があることもわかった。そういうわけで、こういう単純なコードで、3種類のうちから希望の光らせ方をする値を作って送りつけることはできるようになった。
 
 ```
 fun valueToWrite(command: Command): ByteArray {
@@ -115,5 +115,5 @@ enum class GESTURE(val raw: ByteArray) {
 
 この値をどう使うかについてちょっとアイデアが浮かんだのでやってみたいんだけど、時間と手間が掛かりそうでうーん。とりあえずは、ここまでの調査でできたものを、コードをきちんと書き直して公開するのを先にやろうかな。とはいえこのジャケットを持っている人が少ないしコードを書く人はもっと少なそうだから公開しても誰の役にも立たなそうだけども。
 
-[/blog/2019-06-15_Levi-s-Commuter-Trucker-Jacket-with-Jacquard-by-Google----------------1ae6347c67fc](Levi’s Commuter Trucker Jacket with Jacquard by Googleの袖を手書き認識デバイスにする)へ続く。
+[Levi’s Commuter Trucker Jacket with Jacquard by Googleの袖を手書き認識デバイスにする](/blog/2019-06-15_Levi-s-Commuter-Trucker-Jacket-with-Jacquard-by-Google----------------1ae6347c67fc)へ続く。
 

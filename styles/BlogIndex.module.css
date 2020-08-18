@@ -3,8 +3,15 @@
   margin: 1.2em auto;
 }
 
+@media (max-width: 640px) {
+  .heading {
+    width: 88%;
+  }
+}
+
 .list {
   width: 60%;
+  overflow: hidden;
   margin: 0 auto;
   list-style: none;
 }
@@ -31,6 +38,8 @@
   font-size: 2em;
   font-weight: 600;
   text-decoration: none;
+  text-overflow: ellipsis;
+  overflow: hidden;
   color: #222222;
 }
 

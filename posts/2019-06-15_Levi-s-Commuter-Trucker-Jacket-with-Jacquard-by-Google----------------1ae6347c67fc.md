@@ -8,7 +8,7 @@ excerpt: "ジャケット（についてるsnap tag）からJacquardの糸に触
 
 ### Levi’s Commuter Trucker Jacket with Jacquard by Googleの袖を手書き認識デバイスにする
 
-[/blog/2019-06-01_Levi-s-Commuter-Trucker-Jacket-with-Jacquard-by-Google------------8b56fb4732d7](前回まで)のコードで、ジャケット（についてるsnap tag）から飛んでくる情報、特にJacquardの糸に触れたときのなんというか連続的なデータをアプリで取得できるようになった。今のところこの情報は公式アプリでもデモ目的以外には使われていなくて、Double TapやBrush In/Outなどのイベントはsnap tag側で先に判別された上で、そのIDがある種デジタルな、離散的な値として飛んできて、公式アプリはそれに対して反応することができるだけになっている。
+[前回まで](/blog/2019-06-01_Levi-s-Commuter-Trucker-Jacket-with-Jacquard-by-Google------------8b56fb4732d7)のコードで、ジャケット（についてるsnap tag）から飛んでくる情報、特にJacquardの糸に触れたときのなんというか連続的なデータをアプリで取得できるようになった。今のところこの情報は公式アプリでもデモ目的以外には使われていなくて、Double TapやBrush In/Outなどのイベントはsnap tag側で先に判別された上で、そのIDがある種デジタルな、離散的な値として飛んできて、公式アプリはそれに対して反応することができるだけになっている。
 
 連続的なデータを使って何かできないかということで思いついたのが、袖をなぞって発生する一連のデータを文字として認識させて、キーボードのように使えるようにすること。それを実現するために、何度もある文字をなぞったデータを機械学習にかけて、15本の糸のなぞられ方から文字を判別するモデルを作成して、あわよくばそれをアプリ上で実行してキーボードのように使う。
 
@@ -32,7 +32,7 @@ excerpt: "ジャケット（についてるsnap tag）からJacquardの糸に触
 
 ### scikit-learnで使える学習データを作る
 
-scikit-learnとNaive Bayesで検索してみるといくつか入門記事が見つかるのだが、そのほとんどが[https://www.ritchieng.com/machine-learning-iris-dataset/](irisつまりアヤメのデータからそのアヤメの分類を当てるという例)が出てくるので、とりあえずそれをやってみる。写経して動かして、ははあなるほど、と。
+scikit-learnとNaive Bayesで検索してみるといくつか入門記事が見つかるのだが、そのほとんどが[irisつまりアヤメのデータからそのアヤメの分類を当てるという例](https://www.ritchieng.com/machine-learning-iris-dataset/)が出てくるので、とりあえずそれをやってみる。写経して動かして、ははあなるほど、と。
 
 次にirisのデータを自分のデータに置き換える方法を探ってみる。irisのデータは1つの種ごとに4つのカラム（petalのwidthとlength, sepalのwidthとlength）があって、それらが3種類のアヤメに分けられるらしい。それをこんな風にデータ化している。
 
@@ -176,7 +176,7 @@ $ python t1.py
 
 Tensorflowでモデルを作ればTensorflow LiteでAndroidアプリ上で利用できることは知っていたので、scikit-learnで作ったモデルをTensorflowのモデルに変換できるのかを調べたが、まあよくわからないけど簡単にはできませんよね。Tensorflowはニューラルネットワークのためのもので、SVCとかGaussianNBとかはそうじゃないとかなんとかよくわからん。
 
-それじゃあTensorflowで似たような感じで分類を行うことはできるのかと思って、”Tensorflow iris”とかでググったら[https://www.tensorflow.org/guide/premade_estimators](TensorflowにもDNNClassifierというものがあってアヤメの分類ができる)らしい。早速それを行なっているコードをサンプルから探して、実行してみて、自分のデータで置き換えてみるというさっきと同じ作業を今度はTensorflowのコードでやってみる。まあ[https://gist.github.com/fumiakiy/cc9107e2f4b66dbc0a20ee1eabc04dc1](できたのはできた)。全然当たってないけど。
+それじゃあTensorflowで似たような感じで分類を行うことはできるのかと思って、”Tensorflow iris”とかでググったら[TensorflowにもDNNClassifierというものがあってアヤメの分類ができる](https://www.tensorflow.org/guide/premade_estimators)らしい。早速それを行なっているコードをサンプルから探して、実行してみて、自分のデータで置き換えてみるというさっきと同じ作業を今度はTensorflowのコードでやってみる。まあ[できたのはできた](https://gist.github.com/fumiakiy/cc9107e2f4b66dbc0a20ee1eabc04dc1)。全然当たってないけど。
 
 ```
 $ python tf.py
@@ -200,7 +200,7 @@ Prediction is “2” (66.6%), expected “1”
 
 ### 文字を増やす
 
-ここまでやっている間ずっと心配に思っていたのは、aと<strong class="markup--strong markup--p-strong">d</strong>やbと<strong class="markup--strong markup--p-strong">h</strong>やcと<strong class="markup--strong markup--p-strong">e</strong>を本当にこんなデータで区別できるのかということ。そこで、d, e, h, o, yの5つの文字をさらに10ずつくらいログにとって、同じPerlスクリプトで整形して、[https://gist.github.com/fumiakiy/b8018b441d51639d3690ad003bebce0a](scikit-learnのコード)にかけてみた。
+ここまでやっている間ずっと心配に思っていたのは、aと<strong class="markup--strong markup--p-strong">d</strong>やbと<strong class="markup--strong markup--p-strong">h</strong>やcと<strong class="markup--strong markup--p-strong">e</strong>を本当にこんなデータで区別できるのかということ。そこで、d, e, h, o, yの5つの文字をさらに10ずつくらいログにとって、同じPerlスクリプトで整形して、[scikit-learnのコード](https://gist.github.com/fumiakiy/b8018b441d51639d3690ad003bebce0a)にかけてみた。
 
 ```
 $ python sk2.py
@@ -209,7 +209,7 @@ $ python sk2.py
 [6, 0, 2, 0, 6, 3, 3, 7, 2, 0, 5, 4]
 ```
 
-そこそこ? [https://gist.github.com/fumiakiy/c1f8fe23b36b0a8984a12cd2bb54cd0e](Tensorflowでやってみる)とどうだろう。
+そこそこ? [Tensorflowでやってみる](https://gist.github.com/fumiakiy/c1f8fe23b36b0a8984a12cd2bb54cd0e)とどうだろう。
 
 ```
 $ python tf2.py
@@ -233,7 +233,7 @@ Prediction is “4” (15.8%), expected “1”
 
 ガーン。ものの見事に全然区別できてない。ニューラルネットワーク様にはもっとたくさんデータを食わせないとダメなのかあとか思いながら、アルゴリズムを変えてみたりあーだこーだしていてふと気づいた。DNNClassifierに渡している「hidden_units」ってなんだ。
 
-ニューラルネットワークでディープラーニングってのは、[https://www.mapleprimes.com/maplesoftblog/209354-A-Beginners-Guide-To-Using-The-DNN](それっぽい絵)を見てみると、入力から出力の間に通る場所をいくつも作っていくものらしい。どこかのサンプルから写経した[10, 10]を渡しているけど、これはニューラルネットワークのinputとoutputの間にあるよくわからん神経ノードの数と層を表しているのだから、ここを増やせば精度が上がるんじゃないか? データも少ないし、適当に[20, 40, 20]などと渡してみた（前掲リンク先のを真似した）。
+ニューラルネットワークでディープラーニングってのは、[それっぽい絵](https://www.mapleprimes.com/maplesoftblog/209354-A-Beginners-Guide-To-Using-The-DNN)を見てみると、入力から出力の間に通る場所をいくつも作っていくものらしい。どこかのサンプルから写経した[10, 10]を渡しているけど、これはニューラルネットワークのinputとoutputの間にあるよくわからん神経ノードの数と層を表しているのだから、ここを増やせば精度が上がるんじゃないか? データも少ないし、適当に[20, 40, 20]などと渡してみた（前掲リンク先のを真似した）。
 
 ```
 $ python tf2.py
@@ -258,5 +258,5 @@ Prediction is “1” (48.4%), expected “1”
 
 だが、まあとりあえず小文字のアルファベットのデータを全部作って、できたモデルをTensorflow Liteに乗せてAndroidで実行してみるモチベーションが湧くくらいの精度ではあるので、次に進もうと思う。
 
-[/blog/2019-07-04_Levi-s-Commuter-Trucker-Jacket-with-Jacquard-by-Google----------------Android----------------a4747b4edca5](Levi’s Commuter Trucker Jacket with Jacquard by Googleの袖から来たデータを機械学習してAndroidアプリで利用できるモデルを作る)へ続く。
+[Levi’s Commuter Trucker Jacket with Jacquard by Googleの袖から来たデータを機械学習してAndroidアプリで利用できるモデルを作る](/blog/2019-07-04_Levi-s-Commuter-Trucker-Jacket-with-Jacquard-by-Google----------------Android----------------a4747b4edca5)へ続く。
 

@@ -8,7 +8,7 @@ excerpt: "Levi’s Commuter Trucker Jacket with Jacquard by Google を手に入�
 
 ### AndroidアプリとデバイスとのBluetoothでの通信内容を解析する
 
-[/blog/2019-05-05_Levi-s-Commuter-Trucker-Jacket-with-Jacquard-by-Google--------f37ae5a4cde5](Levi’s Commuter Trucker Jacket with Jacquard by Google を手に入れた)の続き。
+[Levi’s Commuter Trucker Jacket with Jacquard by Google を手に入れた](/blog/2019-05-05_Levi-s-Commuter-Trucker-Jacket-with-Jacquard-by-Google--------f37ae5a4cde5)の続き。
 
 Jacquardのジャケットとsnap tagの機能を利用するAndroidアプリを作るために、まずは公式アプリでは何をどうやっているのかを調べてみた。前回の記事で触れたとおり、JacquardのサービスのUUIDといくつかのcharacteristicのUUIDはわかったので、それらに向けていつどんなデータが飛んでいるのか、特にLEDを光らせるコマンドはどうやって送られているのかを調べる。
 
@@ -16,19 +16,19 @@ Jacquardのジャケットとsnap tagの機能を利用するAndroidアプリを
 
 まずは、公式アプリで3つのうちのどれかのアクションにLightを割り当てておく。
 
-また、Androidの設定で[https://developer.android.com/studio/debug/dev-options](Developer Optionsの中にある「Enable Bluetooth Host Controller Interface (HCI) snoop log」をオンにして)、Bluetoothを切って再度オンにしてやる。これでBluetoothでの通信内容がログに保存される。
+また、Androidの設定で[Developer Optionsの中にある「Enable Bluetooth Host Controller Interface (HCI](https://developer.android.com/studio/debug/dev-options) snoop log」をオンにして)、Bluetoothを切って再度オンにしてやる。これでBluetoothでの通信内容がログに保存される。
 
 そうしてから、Jacquardの3種類のLEDモード（白く光らせるFlash Light、赤く点滅させるSignal、7色?に回転するParty?）を順番に割り当てて、実際に動作させてみる。するとそれぞれの動作は、どれも起動してから30秒で自動終了すること、また実行中にもう一度同じことをする（Brush Inするとか）と停止できることがわかった。
 
-それぞれの動作を行った時間をなんとなく記録して、adbでデバイスからBluetoothログを取得する。[https://developer.android.com/studio/debug/dev-options](ドキュメント)には「Captures all Bluetooth HCI packets in a file stored at “/sdcard/btsnoop_hci.log”」って書いてあるんだけども、最近のAndroidではこのファイルが作られるわけではなく、ログを見るにはbugreportするのが正解らしい。
+それぞれの動作を行った時間をなんとなく記録して、adbでデバイスからBluetoothログを取得する。[ドキュメント](https://developer.android.com/studio/debug/dev-options)には「Captures all Bluetooth HCI packets in a file stored at “/sdcard/btsnoop_hci.log”」って書いてあるんだけども、最近のAndroidではこのファイルが作られるわけではなく、ログを見るにはbugreportするのが正解らしい。
 
 `adb bugreport hoge`とやると、hoge.zipが落ちてくるので、`unzip hoge.zip FS/data/misc/bluetooth/logs/btsnoop_hci.log`してログを手に入れた。
 
 ### WiresharkでBluetoothログ解析
 
-`btsnoop_hci.log`はそのまま人間が読むためのテキストログではないのだけど、幸いなことに[https://www.wireshark.org/](Wireshark)がいい感じにやってくれるので、Wiresharkでファイルを開く。だいたいこんな時間帯にこれをやったよな、ってあたりのログを見て、それらしき通信を探す…
+`btsnoop_hci.log`はそのまま人間が読むためのテキストログではないのだけど、幸いなことに[Wireshark](https://www.wireshark.org/)がいい感じにやってくれるので、Wiresharkでファイルを開く。だいたいこんな時間帯にこれをやったよな、ってあたりのログを見て、それらしき通信を探す…
 
-探す…んだけど、[/blog/2019-05-05_Levi-s-Commuter-Trucker-Jacket-with-Jacquard-by-Google--------f37ae5a4cde5](前回あたりをつけた)サービスやcharacteristicのUUIDが全然見つからなかった。あたりはハズレでした。
+探す…んだけど、[前回あたりをつけた](/blog/2019-05-05_Levi-s-Commuter-Trucker-Jacket-with-Jacquard-by-Google--------f37ae5a4cde5)サービスやcharacteristicのUUIDが全然見つからなかった。あたりはハズレでした。
 
 しかたないので、それらしき時間帯で共通に発生しているらしくて、他の時間帯には発生していないと思われる、ような気がするかもしれない感じのログエントリーを探してみる。すると、snap tag上のサービス「d2f2bf0d-d165–445c-b0e1–2d6b642ec57b」、characteristic「d2f2eabb-d165–445c-b0e1–2d6b642ec57b」に対して謎の値をwriteしていることがわかった。
 
@@ -149,7 +149,7 @@ private val gattCallback = object: BluetoothGattCallback() {
 
 ### Bluetooth Low Energyにおけるconnectとpairとbond
 
-当然なんだけど、BLEにはちゃんとセキュリティ、特に飛び交うデータの暗号化に関する仕様があって、それを理解しておけって話なんだけども、簡単にいうとググってこの[https://devzone.nordicsemi.com/f/nordic-q-a/11939/connecting-bonding-pairing-and-whitelists/45217#45217](connecting, pairing and bondingに関する説明)を発見して納得した。connectしただけで見られる情報だけでは（おそらく多くの場合で）デバイスの機能を利用することはできず、それをするには鍵交換を行った上でデータを暗号化してやりとりしなければならないと。
+当然なんだけど、BLEにはちゃんとセキュリティ、特に飛び交うデータの暗号化に関する仕様があって、それを理解しておけって話なんだけども、簡単にいうとググってこの[connecting, pairing and bondingに関する説明](https://devzone.nordicsemi.com/f/nordic-q-a/11939/connecting-bonding-pairing-and-whitelists/45217#45217)を発見して納得した。connectしただけで見られる情報だけでは（おそらく多くの場合で）デバイスの機能を利用することはできず、それをするには鍵交換を行った上でデータを暗号化してやりとりしなければならないと。
 
 となると、Wiresharkで見た情報は鍵が変われば変わってしまうのでは? 鍵はperipheralとclientが同じでも毎回変わるのか?
 
@@ -157,7 +157,7 @@ private val gattCallback = object: BluetoothGattCallback() {
 
 ### Let there be light
 
-というところまで考えたところで、Androidのドキュメントに戻って、[https://developer.android.com/reference/android/bluetooth/BluetoothDevice.html#setPin%28byte%5B%5D%29](BluetoothDevice#setPin(byte[] pin))と[https://developer.android.com/reference/android/bluetooth/BluetoothDevice.html#createBond%28%29](BluetoothDevice#createBond())を見つけた。pinの値は、ジャケットを持っていれば知っているはずのアレで、ジャケットにくっついている。公式アプリはこれを入力しなくても値を表示してくれるので、snap tagはこの値もadvertiseしているはずなんだけど、それを探すのは後回し。
+というところまで考えたところで、Androidのドキュメントに戻って、[BluetoothDevice#setPin(byte[] pin](https://developer.android.com/reference/android/bluetooth/BluetoothDevice.html#setPin%28byte%5B%5D%29))と[BluetoothDevice#createBond(](https://developer.android.com/reference/android/bluetooth/BluetoothDevice.html#createBond%28%29))を見つけた。pinの値は、ジャケットを持っていれば知っているはずのアレで、ジャケットにくっついている。公式アプリはこれを入力しなくても値を表示してくれるので、snap tagはこの値もadvertiseしているはずなんだけど、それを探すのは後回し。
 
 そういうわけで、`discoverServices()`を呼び出す前に`setPin`と`createBond`を呼び出してしまう。
 
@@ -176,5 +176,5 @@ gatt?.let {
 
 本当は`createBond`の成否をBroadcastReceiverで受け取ってから操作しないといけないのだが、いったんbondしてしまえば次からはまあ速いので、こんなコードでもちゃんと動いた。
 
-[/blog/2019-06-01_Levi-s-Commuter-Trucker-Jacket-with-Jacquard-by-Google------------8b56fb4732d7](Levi’s Commuter Trucker Jacket with Jacquard by Googleを操る自作アプリを作る)へ続く。
+[Levi’s Commuter Trucker Jacket with Jacquard by Googleを操る自作アプリを作る](/blog/2019-06-01_Levi-s-Commuter-Trucker-Jacket-with-Jacquard-by-Google------------8b56fb4732d7)へ続く。
 

@@ -8,7 +8,7 @@ excerpt: "その1からの続きです。"
 
 ### Achievement unlocked: アメリカ国内で H-1B のまま転職した（その2/2）
 
-[/blog/2017-08-08_Achievement-unlocked----------H-1B---------1-2--488f6217c832](その1)からの続きです。
+[その1](/blog/2017-08-08_Achievement-unlocked----------H-1B---------1-2--488f6217c832)からの続きです。
 
 ### 11. Visa Transfer
 
