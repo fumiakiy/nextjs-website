@@ -10,7 +10,7 @@ excerpt: "苦節4年、ついにスマート繊維を組み込んだ例のアレ
 
 苦節4年、ついにスマート繊維を組み込んだ例のアレを手に入れて、早速少しコードを書いてみました。
 
-![/images/1*Ox5jDQ5gm-Bmf7YJH8TBkQ.jpeg](Levi’s Commuter Trucker Jacket with Jacquard by Google)
+![Levi’s Commuter Trucker Jacket with Jacquard by Google](/images/1*Ox5jDQ5gm-Bmf7YJH8TBkQ.jpeg)
 
 ### Levi’s Commuter Trucker Jacket with Jacquard by Googleとは
 

@@ -1,8 +1,8 @@
 import Head from 'next/head'
 import matter from "gray-matter"
 import ReactMarkdown from "react-markdown"
-
 import styles from "../../styles/BlogPost.module.css"
+import { dateString } from "../../util"
 
 export default function BlogPost({ frontmatter, markdownBody }) {
   if (!frontmatter) return <></>
@@ -54,6 +54,7 @@ export default function BlogPost({ frontmatter, markdownBody }) {
       <div className="blog">
         <article className={styles.article}>
           <h1>{frontmatter.title}</h1>
+          <div className={styles.date}>{dateString(frontmatter.epoch)}</div>
           <div className={styles.body}>
             <ReactMarkdown source={markdownBody} renderers={renderers} />
           </div>

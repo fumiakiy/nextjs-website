@@ -1,8 +1,8 @@
 import matter from "gray-matter"
 import Head from "next/head"
 import Link from "next/link"
-
 import styles from "../../styles/BlogIndex.module.css"
+import { dateString } from "../../util"
 
 interface Post {
   frontmatter: {
@@ -10,6 +10,7 @@ interface Post {
     epoch: string
     slug: string
     title: string
+    excerpt: string
   }
   markdownBody: string
 }
@@ -42,12 +43,14 @@ function Posts(props: PostsProps) {
               <h2 className={styles.title}>{post.frontmatter.title}</h2>
               <div className={styles.excerpt}>
                 {
-                  post.markdownBody.length > 200
-                     ? `${post.markdownBody.substring(0, 200)}...`
-                     : post.markdownBody
+                  !!post.frontmatter.excerpt
+                    ? post.frontmatter.excerpt
+                    : post.markdownBody.length > 200
+                      ? `${post.markdownBody.substring(0, 200)}...`
+                      : post.markdownBody
                 }
               </div>
-              <div className={styles.date}>{post.frontmatter.date}</div>
+              <div className={styles.date}>{dateString(post.frontmatter.epoch)}</div>
             </div>
           </Link>
         </li>
