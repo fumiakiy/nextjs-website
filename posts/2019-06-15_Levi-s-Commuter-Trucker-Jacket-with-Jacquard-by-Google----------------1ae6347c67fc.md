@@ -200,7 +200,7 @@ Prediction is “2” (66.6%), expected “1”
 
 ### 文字を増やす
 
-ここまでやっている間ずっと心配に思っていたのは、aと<strong class="markup--strong markup--p-strong">d</strong>やbと<strong class="markup--strong markup--p-strong">h</strong>やcと<strong class="markup--strong markup--p-strong">e</strong>を本当にこんなデータで区別できるのかということ。そこで、d, e, h, o, yの5つの文字をさらに10ずつくらいログにとって、同じPerlスクリプトで整形して、[scikit-learnのコード](https://gist.github.com/fumiakiy/b8018b441d51639d3690ad003bebce0a)にかけてみた。
+ここまでやっている間ずっと心配に思っていたのは、aと**d**やbと**h**やcと**e**を本当にこんなデータで区別できるのかということ。そこで、d, e, h, o, yの5つの文字をさらに10ずつくらいログにとって、同じPerlスクリプトで整形して、[scikit-learnのコード](https://gist.github.com/fumiakiy/b8018b441d51639d3690ad003bebce0a)にかけてみた。
 
 ```
 $ python sk2.py

@@ -34,7 +34,7 @@ Jacquardのジャケットとsnap tagの機能を利用するAndroidアプリを
 
 さらに、その謎の値をwriteした後すぐに、同じサービスの同じcharacteristicから別の値をreadしていること、その30秒後にまた同じサービスの同じcharacteristicから別の値をreadしていることが判明する。しかも3種類のLEDの光らせ方それぞれを行った時間帯にそれぞれ、writeとreadの値だけが異なる通信をしている。これは怪しい。
 
-何度かLEDを光らせてはログを取ってみると、これらの値は毎回若干異なるもののある種のパターンがあり、全然変わらない部分、毎回変わる部分、光らせ方によって変わる部分があることがわかった。例えば赤点滅モードの場合の値は「c0110800100818<strong class="markup--strong markup--p-strong">06</strong>da060808<strong class="markup--strong markup--p-strong">20</strong>107830013801」だったり「c0110800100818<strong class="markup--strong markup--p-strong">1a</strong>da060808<strong class="markup--strong markup--p-strong">20</strong>107830013801」だったりするが、Partyモードの値は「c0110800100818<strong class="markup--strong markup--p-strong">05</strong>da060808<strong class="markup--strong markup--p-strong">10</strong>107830013801」だったり「c0110800100818<strong class="markup--strong markup--p-strong">1b</strong>da060808<strong class="markup--strong markup--p-strong">10</strong>107830013801」だったりする。
+何度かLEDを光らせてはログを取ってみると、これらの値は毎回若干異なるもののある種のパターンがあり、全然変わらない部分、毎回変わる部分、光らせ方によって変わる部分があることがわかった。例えば赤点滅モードの場合の値は「c0110800100818**06**da060808**20**107830013801」だったり「c0110800100818**1a**da060808**20**107830013801」だったりするが、Partyモードの値は「c0110800100818**05**da060808**10**107830013801」だったり「c0110800100818**1b**da060808**10**107830013801」だったりする。
 
 そこで、とりあえず自作Androidアプリから同じUUIDsに対してログと同じような値を送りつけてみたらどうなるか、やってみることにした。
 
