@@ -22,6 +22,7 @@ class CustomDocument extends Document {
           <script async src="https://www.googletagmanager.com/gtag/js?id=UA-50700-3"></script>
           <Script />
           <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+          <link rel="alternate" type="application/atom+xml" title="Atom feed for blog by Fumiaki Yoshimatsu" href="https://luckypines.com/feed.atom" />
         </Head>
         <body>
           <Main />

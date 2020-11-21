@@ -16,6 +16,7 @@
 
 # production
 /build
+/public/feed.atom
 
 # misc
 .DS_Store
