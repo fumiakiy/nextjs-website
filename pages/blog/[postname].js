@@ -8,12 +8,20 @@ export default function BlogPost({ frontmatter, markdownBody }) {
   if (!frontmatter) return <></>
 
   const renderers = {
-    image: props => (
-      <div className="image-container">
-        <img src={props.src} alt={props.alt} />
-        <div className="image-caption">{props.alt}</div>
-      </div>
-    ),
+    image: props =>
+      /\/videos\//.test(props.src)
+        ? (
+          <div className="image-container">
+            <video src={props.src} alt={props.alt} controls muted />
+            <div className="image-caption">{props.alt}</div>
+          </div>
+        )
+        : (
+          <div className="image-container">
+            <img src={props.src} alt={props.alt} />
+            <div className="image-caption">{props.alt}</div>
+          </div>
+        ),
     paragraph: "div"
   }
 

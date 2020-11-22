@@ -11,6 +11,11 @@
   max-width: 96%;
 }
 
+.blog .image-container video {
+  padding: 2%;
+  max-width: 320px;
+}
+
 .blog .image-container .image-caption {
   text-align: center;
   font-size: small;
