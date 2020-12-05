@@ -26,9 +26,13 @@ const BlogIndex = ({ posts, ...props }) => {
         <title>Blog | Fumiaki Yoshimatsu</title>
       </Head>
       <main>
+        <a href="/" className={styles.backlink}>https://luckypines.com</a>
         <h1 className={styles.heading}>Blog</h1>
         <Posts posts={posts} />
       </main>
+      <footer className={styles.footer}>
+        <a href="/" className={styles.backlink}>https://luckypines.com</a>
+      </footer>
     </>
   )
 }

@@ -27,6 +27,7 @@ export default function BlogPost({ frontmatter, markdownBody }) {
 
   return (
     <>
+      <a href="/blog" className={styles.backlink}>https://luckypines.com/blog</a>
       <Head>
         <title>{frontmatter.title}</title>
         <meta name="twitter:card" content="summary" />
@@ -68,6 +69,9 @@ export default function BlogPost({ frontmatter, markdownBody }) {
           </div>
         </article>
       </div>
+      <footer className={styles.footer}>
+        <a href="/blog" className={styles.backlink}>https://luckypines.com/blog</a>
+      </footer>
     </>
   )
 }

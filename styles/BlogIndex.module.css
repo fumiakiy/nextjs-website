@@ -1,4 +1,11 @@
-.heading {
+.backlink {
+  display: block;
+  width: 60%;
+  margin: 1.2em auto;
+  color: #AAAAAA;
+}
+
+.heading, .backlink {
   width: 60%;
   margin: 1.2em auto;
 }
@@ -51,4 +58,8 @@
   margin-top: 1em;
   color: #AAAAAA;
   text-align: right;
+}
+
+.footer {
+  padding-bottom: 1.2em;
 }
