@@ -16,12 +16,12 @@ RSSをサイドに表示できるプラグインはないもんかと思って�
 1. XML::Simpleを通ると、文字列にフラグが付いてしまうのかもね。
 1. じゃあ返された文字列のフラグを外してしまえばいいのでは。
 1. 外すには『utf8::encode($alpha); # UTF8フラグを落す(Encode::encode_utf8 と同じだが、引数を変化させる)』って書いてあるぞ。
-1.GetXMLのget_valueにパッチ当てちゃえ。
-```
-203a204
-> utf8::encode($text);
-```
-1.Save and Rebuild。
-1.おー日本語出た。
+1. GetXMLのget_valueにパッチ当てちゃえ。
+    ```
+    203a204
+    > utf8::encode($text);
+    ```
+1. Save and Rebuild。
+1. おー日本語出た。
 
 勘でも何とかなるもんですね。＜オチなしｗ

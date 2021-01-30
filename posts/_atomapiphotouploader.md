@@ -20,9 +20,9 @@ FlickrがLifeblogすなわちAtom PPに対応したってことなんで、拙�
 一応書いておきますが、書くまでもなく、こんなのよりFlickrのアップローダのほうが優れています。僕自身Flickrのアップローダつかってます（笑）。まあAtomなんざ「まだ実装すんな」っていう仕様なんで。でも実装がないまま進む仕様化ってのも危険なんで、実装してみるってのに意味はあるかな、と。なんだそりゃ。
 
 これまでの経緯。
-[続 AtomAPIPhotoUploader](/blog/-atomapiphotouploader-1/)
-[改め、AtomAPIPhotoUploader。](/blog/atomapiphotouploader/)
-[はてなフォトライフアップローダー](/blog/post-43/)
+- [続 AtomAPIPhotoUploader](/blog/-atomapiphotouploader-1/)
+- [改め、AtomAPIPhotoUploader。](/blog/atomapiphotouploader/)
+- [はてなフォトライフアップローダー](/blog/post-43/)
 
 あとついでに発見したのは、NokiaのLifeblog PC版にはCOMAtom.dllというCOMベースのAtom PP実装が含まれてる（と思われる）ってことですね。CreateObject("COMAtom.AtomClient")ってな感じでいけるっぽい。やっぱCOMがキテるらしいってことでオチがつきました。
 
