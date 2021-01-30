@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "export": "next export && cp ./out/resume.html ./out/resume.htm && cp ./out/blog/mt/index.html ./public/mt/2008/05/mt.html && cp ./out/blog/mt/index.html ./out/mt/2008/05/mt.html"
+    "export": "next export && sh ./copies"
   },
   "dependencies": {
     "gray-matter": "^4.0.2",

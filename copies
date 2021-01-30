@@ -1,0 +1,14 @@
+cp ./out/resume.html ./out/resume.htm
+cp ./out/blog/mt/index.html ./public/mt/2008/05/mt.html
+cp ./out/blog/mt/index.html ./out/mt/2008/05/mt.html
+cp ./out/blog/idmovable_type_4/index.html ./out/mt/2007/08/idmovable_type_4.html
+cp ./out/blog/mthatenastar/index.html ./out/mt/2007/08/mthatenastar.html
+cp ./out/blog/movable_type_and_brads_thought/index.html ./out/mt/2007/08/movable_type_and_brads_thought.html
+cp ./out/blog/mt-42xapi/index.html ./out/mt/2008/11/mt-42xapi.html
+cp ./out/blog/post-43/index.html ./out/mt/2005/02/post-43.html
+cp ./out/blog/atomapiphotouploader/index.html ./out/mt/2005/02/atomapiphotouploader.html
+cp ./out/blog/-atomapiphotouploader-1/index.html ./out/mt/2005/02/-atomapiphotouploader-1.html
+cp ./out/blog/_atomapiphotouploader/index.html ./out/mt/2005/03/_atomapiphotouploader.html
+cp ./out/blog/standalonexml/index.html ./out/mt/2005/03/standalonexml.html
+cp ./out/blog/atom_api_photo_uploaderlivedoo/index.html ./out/mt/2005/12/atom_api_photo_uploaderlivedoo.html
+cp ./out/blog/getxml/index.html ./out/mt/2005/11/getxml.html
