@@ -5,8 +5,9 @@ import ReactMarkdown from "react-markdown"
 import styles from "../../styles/BlogPost.module.css"
 import { dateString } from "../../util"
 import { ElementType } from "react"
+import Link from "next/link"
 
-export default function BlogPost({ frontmatter, markdownBody }) {
+export default function BlogPost({ frontmatter, markdownBody, navs }) {
   if (!frontmatter) return <></>
 
   const renderers: { [nodeType: string]: ElementType<any>; } = {
@@ -29,7 +30,6 @@ export default function BlogPost({ frontmatter, markdownBody }) {
 
   return (
     <>
-      <a href="/blog" className={styles.backlink}>https://luckypines.com/blog</a>
       <Head>
         <title>{frontmatter.title}</title>
         <meta name="twitter:card" content="summary" />
@@ -61,6 +61,16 @@ export default function BlogPost({ frontmatter, markdownBody }) {
             ? <meta property="twitter:image" content={`https://luckypines.com${frontmatter.ogImage}`} />
             : null
         }
+        {
+          navs.prevPage == null
+            ? null
+            : <link rel="prev" href={`https://luckypines.com${navs.prevPage.slug}`} />
+        }
+        {
+          navs.nextPage == null
+            ? null
+            : <link rel="next" href={`https://luckypines.com${navs.nextPage.slug}`} />
+        }
       </Head>
       <div className="blog">
         <article className={styles.article}>
@@ -72,14 +82,47 @@ export default function BlogPost({ frontmatter, markdownBody }) {
         </article>
       </div>
       <footer className={styles.footer}>
-        <a href="/blog" className={styles.backlink}>https://luckypines.com/blog</a>
+        {
+          navs.prevPage == null
+            ? null
+            : <Link href={{ pathname: `${navs.prevPage.slug}` }}><a className={styles.prev}>&laquo; {navs.prevPage.title}</a></Link>
+        }
+        <Link href={{ pathname: "/blog" }}><a className={styles.top}>Blog</a></Link>
+        {
+          navs.nextPage == null
+            ? null
+            : <Link href={{ pathname: `${navs.nextPage.slug}` }}><a className={styles.next}>{navs.nextPage.title} &raquo; </a></Link>
+        }
       </footer>
     </>
   )
 }
 
+function findPostsAround(postname: string) {
+  const posts = ((context) => {
+    const keys = context.keys()
+    const values = keys.map(context)
+    return values.map((value:any) => {
+      const document = matter(value.default)
+      return {
+        epoch: document.data.epoch,
+        title: document.data.title,
+        slug: document.data.slug
+      }
+    }).sort((a, b) => b.epoch.localeCompare(a.epoch))
+  })(require.context("../../posts", true, /\.md$/))
+
+  if (posts.length <= 0) return {}
+  const thisPageIndex = posts.findIndex(p => p.slug === `/blog/${postname}`)
+  return {
+    nextPage: posts[thisPageIndex - 1] ?? null,
+    prevPage: posts[thisPageIndex + 1] ?? null
+  }
+}
+
 export const getStaticProps: GetStaticProps = async (context) => {
   const { postname } = context.params
+  const navs = findPostsAround(postname as string)
 
   const content = await import(`../../posts/${postname}.md`)
   const data = matter(content.default)
@@ -88,6 +131,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     props: {
       frontmatter: data.data,
       markdownBody: data.content,
+      navs: navs
     },
   }
 }
