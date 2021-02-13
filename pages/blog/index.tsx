@@ -67,7 +67,7 @@ export async function getStaticProps() {
   const posts = ((context) => {
     const keys = context.keys()
     const values = keys.map(context)
-    const data = values.map(value => {
+    const data = values.map((value:any) => {
       const document = matter(value.default)
       return {
         frontmatter: document.data,

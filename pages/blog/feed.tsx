@@ -51,17 +51,17 @@ export async function getStaticProps() {
   const allPosts = ((context) => {
     const keys = context.keys()
     const values = keys.map(context)
-    const data = values.map(value => {
+    const data = values.map((value:any) => {
       const document = matter(value.default)
       return {
         frontmatter: document.data,
         markdownBody: document.content
-      }
-    }).sort((a, b) => b.frontmatter.epoch - a.frontmatter.epoch)
+      } as Post
+    }).sort((a, b) => b.frontmatter.epoch.localeCompare(a.frontmatter.epoch))
     return data
   })(require["context"]("../../posts", true, /\.md$/))
 
-  const posts = allPosts.filter(p => p.frontmatter.epoch > 1500262000)
+  const posts: Post[] = allPosts.filter(p => p.frontmatter.epoch > "1500262000")
   const atom = FeedEnvelope({posts: posts});
 
   fs.writeFileSync("./public/feed.atom", atom);

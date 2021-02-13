@@ -1,18 +1,20 @@
-import Head from 'next/head'
+import { GetStaticProps, GetStaticPaths } from "next"
+import Head from "next/head"
 import matter from "gray-matter"
 import ReactMarkdown from "react-markdown"
 import styles from "../../styles/BlogPost.module.css"
 import { dateString } from "../../util"
+import { ElementType } from "react"
 
 export default function BlogPost({ frontmatter, markdownBody }) {
   if (!frontmatter) return <></>
 
-  const renderers = {
+  const renderers: { [nodeType: string]: ElementType<any>; } = {
     image: props =>
       /\/videos\//.test(props.src)
         ? (
           <div className="image-container">
-            <video src={props.src} alt={props.alt} controls muted />
+            <video src={props.src} title={props.alt} controls muted />
             <div className="image-caption">{props.alt}</div>
           </div>
         )
@@ -76,8 +78,8 @@ export default function BlogPost({ frontmatter, markdownBody }) {
   )
 }
 
-export async function getStaticProps({ ...ctx }) {
-  const { postname } = ctx.params
+export const getStaticProps: GetStaticProps = async (context) => {
+  const { postname } = context.params
 
   const content = await import(`../../posts/${postname}.md`)
   const data = matter(content.default)
@@ -90,7 +92,7 @@ export async function getStaticProps({ ...ctx }) {
   }
 }
 
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async () => {
   const blogSlugs = ((context) => {
     const keys = context.keys()
     const data = keys.map((key, index) => {
