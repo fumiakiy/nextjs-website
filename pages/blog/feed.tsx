@@ -1,6 +1,9 @@
 import matter from "gray-matter"
 import * as fs from "fs"
 import { dateStringISO } from "../../util"
+import { v5 as uuidv5 } from "uuid"
+
+const NS = "9a950c66-5966-466a-b67c-0fca63c03182"
 
 interface Post {
   frontmatter: {
@@ -22,6 +25,7 @@ function FeedEnvelope(props: PostsProps) {
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Blog by Fumiaki Yoshimatsu</title>
   <link href="https://luckypines.com/blog"/>
+  <link rel="self" href="https://luckypines.com/feed.atom"/>
   <updated>${dateStringISO(props.posts[0].frontmatter.epoch)}</updated>
   <author>
     <name>Fumiaki Yoshimatsu</name>
@@ -36,7 +40,7 @@ const feedItem = (post: Post): string => `
 <entry>
   <title>${post.frontmatter.title}</title>
   <link href="https://luckypines.com${post.frontmatter.slug}"/>
-  <id>urn:uuid:1225c695-cfb8-4ebb-aaaa-80da344efa6a</id>
+  <id>urn:uuid:${uuidv5(post.frontmatter.slug, NS)}</id>
   <updated>${dateStringISO(post.frontmatter.epoch)}</updated>
   <summary>${!!post.frontmatter.excerpt
     ? post.frontmatter.excerpt
