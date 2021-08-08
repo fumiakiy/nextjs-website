@@ -2,6 +2,7 @@ import { GetStaticProps, GetStaticPaths } from "next"
 import Head from "next/head"
 import matter from "gray-matter"
 import ReactMarkdown from "react-markdown"
+import gfm from 'remark-gfm'
 import styles from "../../styles/BlogPost.module.css"
 import { dateString } from "../../util"
 import { ElementType } from "react"
@@ -11,7 +12,7 @@ export default function BlogPost({ frontmatter, markdownBody, navs }) {
   if (!frontmatter) return <></>
 
   const renderers: { [nodeType: string]: ElementType<any>; } = {
-    image: props =>
+    img: props =>
       /\/videos\//.test(props.src)
         ? (
           <div className="image-container">
@@ -25,7 +26,7 @@ export default function BlogPost({ frontmatter, markdownBody, navs }) {
             <div className="image-caption">{props.alt}</div>
           </div>
         ),
-    paragraph: "div"
+    p: "div"
   }
 
   return (
@@ -77,7 +78,7 @@ export default function BlogPost({ frontmatter, markdownBody, navs }) {
           <h1>{frontmatter.title}</h1>
           <div className={styles.date}>{dateString(frontmatter.epoch)}</div>
           <div className={styles.body}>
-            <ReactMarkdown source={markdownBody} renderers={renderers} />
+            <ReactMarkdown children={markdownBody} remarkPlugins={[gfm]} components={renderers} />
           </div>
         </article>
       </div>
