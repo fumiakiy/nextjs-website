@@ -7,6 +7,10 @@
   line-height: 1.6em;
 }
 
+.blog-post-table {
+  border: 1px solid lightgray;
+}
+
 .footer {
   padding-top: 1.2em;
   padding-bottom: 1.2em;

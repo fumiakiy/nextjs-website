@@ -26,7 +26,8 @@ export default function BlogPost({ frontmatter, markdownBody, navs }) {
             <div className="image-caption">{props.alt}</div>
           </div>
         ),
-    p: "div"
+    p: "div",
+    table: props => <table className="blog-post-table">{props.children}</table>,
   }
 
   return (
