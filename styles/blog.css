@@ -74,6 +74,11 @@
   font-size: larger;
 }
 
+.blog .break-pre::before {
+  content: '\a';
+  white-space: pre;
+}
+
 .blog .blog-post-table {
   margin: 32px auto;
   border: 1px solid lightgray;

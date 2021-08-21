@@ -28,6 +28,13 @@ export default function BlogPost({ frontmatter, markdownBody, navs }) {
         ),
     p: "div",
     table: props => <table className="blog-post-table">{props.children}</table>,
+    a: props => {
+      if (props.href === "linebreak") {
+        return <span className="break-pre">{props.children}</span>
+      } else {
+        return <a href={props.href}>{props.children}</a>
+      }
+    },
   }
 
   return (
