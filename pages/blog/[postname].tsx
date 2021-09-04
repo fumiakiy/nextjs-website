@@ -111,14 +111,16 @@ function findPostsAround(postname: string) {
   const posts = ((context) => {
     const keys = context.keys()
     const values = keys.map(context)
-    return values.map((value:any) => {
-      const document = matter(value.default)
-      return {
+    return values.reduce<any>((c, v) => {
+      const document = matter(v["default"])
+      if (!!document.data.draft) return c
+      c.push({
         epoch: document.data.epoch,
         title: document.data.title,
         slug: document.data.slug
-      }
-    }).sort((a, b) => b.epoch.localeCompare(a.epoch))
+      })
+      return c
+    }, []).sort((a, b) => b.epoch.localeCompare(a.epoch))
   })(require.context("../../posts", true, /\.md$/))
 
   if (posts.length <= 0) return {}
@@ -148,12 +150,14 @@ export const getStaticProps: GetStaticProps = async (context) => {
 export const getStaticPaths: GetStaticPaths = async () => {
   const blogSlugs = ((context) => {
     const keys = context.keys()
-    const data = keys.map((key, index) => {
-      let slug = key.replace(/^.*[\\\/]/, "").slice(0, -3)
-
-      return slug
-    })
-    return data
+    const slugs = keys.reduce<any>((c, v) => {
+      const meta = matter(context(v).default).data
+      if (!!meta.draft) return c
+      const slug = v.replace(/^.*[\\\/]/, "").slice(0, -3)
+      c.push(slug)
+      return c
+    }, [])
+    return slugs
   })(require.context("../../posts", true, /\.md$/))
 
   const paths = blogSlugs.map((slug) => `/blog/${slug}`)

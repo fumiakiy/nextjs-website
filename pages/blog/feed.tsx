@@ -55,13 +55,15 @@ export async function getStaticProps() {
   const allPosts = ((context) => {
     const keys = context.keys()
     const values = keys.map(context)
-    const data = values.map((value:any) => {
-      const document = matter(value.default)
-      return {
+    const data = values.reduce<any>((c, v) => {
+      const document = matter(v["default"])
+      if (!!document.data.draft) return c
+      c.push({
         frontmatter: document.data,
         markdownBody: document.content
-      } as Post
-    }).sort((a, b) => b.frontmatter.epoch.localeCompare(a.frontmatter.epoch))
+      } as Post)
+      return c
+    }, []).sort((a, b) => b.frontmatter.epoch.localeCompare(a.frontmatter.epoch))
     return data
   })(require["context"]("../../posts", true, /\.md$/))
 
