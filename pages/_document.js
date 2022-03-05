@@ -4,11 +4,27 @@ import React from 'react';
 function Script() {
   const raw = `
   window.dataLayer = window.dataLayer || [];
-  function gtag() {dataLayer.push(arguments); }
-    gtag("js", new Date());
+  function gtag() { dataLayer.push(arguments); }
+  gtag("js", new Date());
+  gtag("config", "UA-50700-3");
 
-    gtag("config", "UA-50700-3");
- `
+  window.twttr = (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0],
+      t = window.twttr || {};
+    if (d.getElementById(id)) return t;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "https://platform.twitter.com/widgets.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  
+    t._e = [];
+    t.ready = function(f) {
+      t._e.push(f);
+    };
+  
+    return t;
+  }(document, "script", "twitter-wjs"));
+  `
   return React.createElement("script", { dangerouslySetInnerHTML: { __html: raw } });
 }
 

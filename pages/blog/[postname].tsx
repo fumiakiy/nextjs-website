@@ -1,41 +1,48 @@
-import { GetStaticProps, GetStaticPaths } from "next"
-import Head from "next/head"
-import matter from "gray-matter"
-import ReactMarkdown from "react-markdown"
-import gfm from 'remark-gfm'
-import styles from "../../styles/BlogPost.module.css"
-import { dateString } from "../../util"
-import { ElementType } from "react"
-import Link from "next/link"
+import { GetStaticProps, GetStaticPaths } from "next";
+import Head from "next/head";
+import matter from "gray-matter";
+import ReactMarkdown from "react-markdown";
+import gfm from "remark-gfm";
+import styles from "../../styles/BlogPost.module.css";
+import { dateString } from "../../util";
+import { ElementType } from "react";
+import Link from "next/link";
 
 export default function BlogPost({ frontmatter, markdownBody, navs }) {
-  if (!frontmatter) return <></>
+  if (!frontmatter) return <></>;
 
-  const renderers: { [nodeType: string]: ElementType<any>; } = {
-    img: props =>
-      /\/videos\//.test(props.src)
-        ? (
-          <div className="image-container">
-            <video src={props.src} title={props.alt} controls muted />
-            <div className="image-caption">{props.alt}</div>
-          </div>
-        )
-        : (
-          <div className="image-container">
-            <img src={props.src} alt={props.alt} />
-            <div className="image-caption">{props.alt}</div>
-          </div>
-        ),
+  const renderers: { [nodeType: string]: ElementType<any> } = {
+    img: (props) =>
+      /\/videos\//.test(props.src) ? (
+        <div className="image-container">
+          <video src={props.src} title={props.alt} controls muted />
+          <div className="image-caption">{props.alt}</div>
+        </div>
+      ) : (
+        <div className="image-container">
+          <img src={props.src} alt={props.alt} />
+          <div className="image-caption">{props.alt}</div>
+        </div>
+      ),
     p: "div",
-    table: props => <table className="blog-post-table">{props.children}</table>,
-    a: props => {
+    table: (props) => (
+      <table className="blog-post-table">{props.children}</table>
+    ),
+    a: (props) => {
       if (props.href === "linebreak") {
-        return <span className="break-pre">{props.children}</span>
+        return <span className="break-pre">{props.children}</span>;
+      } else if (props.href.startsWith("https://twitter.com/")) {
+        return (
+          <blockquote className="twitter-tweet">
+              {props.children}
+              <a href={props.href}></a>
+          </blockquote>
+        );
       } else {
-        return <a href={props.href}>{props.children}</a>
+        return <a href={props.href}>{props.children}</a>;
       }
     },
-  }
+  };
 
   return (
     <>
@@ -45,125 +52,131 @@ export default function BlogPost({ frontmatter, markdownBody, navs }) {
         <meta name="twitter:site" content="@fumiakiy" />
         <meta name="og:title" content={frontmatter.title} />
         <meta name="twitter:title" content={frontmatter.title} />
-        {
-          !!frontmatter.excerpt
-            ? <meta name="description" content={frontmatter.excerpt} />
-            : null
-        }
-        {
-          !!frontmatter.excerpt
-            ? <meta name="og:description" content={frontmatter.excerpt} />
-            : null
-        }
-        {
-          !!frontmatter.excerpt
-            ? <meta name="twitter:description" content={frontmatter.excerpt} />
-            : null
-        }
-        {
-          !!frontmatter.ogImage
-            ? <meta property="og:image" content={`https://luckypines.com${frontmatter.ogImage}`} />
-            : null
-        }
-        {
-          !!frontmatter.ogImage
-            ? <meta property="twitter:image" content={`https://luckypines.com${frontmatter.ogImage}`} />
-            : null
-        }
-        {
-          navs.prevPage == null
-            ? null
-            : <link rel="prev" href={`https://luckypines.com${navs.prevPage.slug}`} />
-        }
-        {
-          navs.nextPage == null
-            ? null
-            : <link rel="next" href={`https://luckypines.com${navs.nextPage.slug}`} />
-        }
+        {!!frontmatter.excerpt ? (
+          <meta name="description" content={frontmatter.excerpt} />
+        ) : null}
+        {!!frontmatter.excerpt ? (
+          <meta name="og:description" content={frontmatter.excerpt} />
+        ) : null}
+        {!!frontmatter.excerpt ? (
+          <meta name="twitter:description" content={frontmatter.excerpt} />
+        ) : null}
+        {!!frontmatter.ogImage ? (
+          <meta
+            property="og:image"
+            content={`https://luckypines.com${frontmatter.ogImage}`}
+          />
+        ) : null}
+        {!!frontmatter.ogImage ? (
+          <meta
+            property="twitter:image"
+            content={`https://luckypines.com${frontmatter.ogImage}`}
+          />
+        ) : null}
+        {navs.prevPage == null ? null : (
+          <link
+            rel="prev"
+            href={`https://luckypines.com${navs.prevPage.slug}`}
+          />
+        )}
+        {navs.nextPage == null ? null : (
+          <link
+            rel="next"
+            href={`https://luckypines.com${navs.nextPage.slug}`}
+          />
+        )}
       </Head>
       <div className="blog">
         <article className={styles.article}>
           <h1>{frontmatter.title}</h1>
           <div className={styles.date}>{dateString(frontmatter.epoch)}</div>
           <div className={styles.body}>
-            <ReactMarkdown children={markdownBody} remarkPlugins={[gfm]} components={renderers} />
+            <ReactMarkdown
+              children={markdownBody}
+              remarkPlugins={[gfm]}
+              components={renderers}
+            />
           </div>
         </article>
       </div>
       <footer className={styles.footer}>
-        {
-          navs.prevPage == null
-            ? null
-            : <Link href={{ pathname: `${navs.prevPage.slug}` }}><a className={styles.prev}>&laquo; {navs.prevPage.title}</a></Link>
-        }
-        <Link href={{ pathname: "/blog" }}><a className={styles.top}>Blog</a></Link>
-        {
-          navs.nextPage == null
-            ? null
-            : <Link href={{ pathname: `${navs.nextPage.slug}` }}><a className={styles.next}>{navs.nextPage.title} &raquo; </a></Link>
-        }
+        {navs.prevPage == null ? null : (
+          <Link href={{ pathname: `${navs.prevPage.slug}` }}>
+            <a className={styles.prev}>&laquo; {navs.prevPage.title}</a>
+          </Link>
+        )}
+        <Link href={{ pathname: "/blog" }}>
+          <a className={styles.top}>Blog</a>
+        </Link>
+        {navs.nextPage == null ? null : (
+          <Link href={{ pathname: `${navs.nextPage.slug}` }}>
+            <a className={styles.next}>{navs.nextPage.title} &raquo; </a>
+          </Link>
+        )}
       </footer>
     </>
-  )
+  );
 }
 
 function findPostsAround(postname: string) {
   const posts = ((context) => {
-    const keys = context.keys()
-    const values = keys.map(context)
-    return values.reduce<any>((c, v) => {
-      const document = matter(v["default"])
-      if (!!document.data.draft) return c
-      c.push({
-        epoch: document.data.epoch,
-        title: document.data.title,
-        slug: document.data.slug
-      })
-      return c
-    }, []).sort((a, b) => b.epoch.localeCompare(a.epoch))
-  })(require.context("../../posts", true, /\.md$/))
+    const keys = context.keys();
+    const values = keys.map(context);
+    return values
+      .reduce<any>((c, v) => {
+        const document = matter(v["default"]);
+        if (!!document.data.draft) return c;
+        c.push({
+          epoch: document.data.epoch,
+          title: document.data.title,
+          slug: document.data.slug,
+        });
+        return c;
+      }, [])
+      .sort((a, b) => b.epoch.localeCompare(a.epoch));
+  })(require.context("../../posts", true, /\.md$/));
 
-  if (posts.length <= 0) return {}
-  const thisPageIndex = posts.findIndex(p => p.slug === `/blog/${postname}`)
+  if (posts.length <= 0) return {};
+  const thisPageIndex = posts.findIndex((p) => p.slug === `/blog/${postname}`);
   return {
     nextPage: posts[thisPageIndex - 1] ?? null,
-    prevPage: posts[thisPageIndex + 1] ?? null
-  }
+    prevPage: posts[thisPageIndex + 1] ?? null,
+  };
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const { postname } = context.params
-  const navs = findPostsAround(postname as string)
+  const { postname } = context.params;
+  const navs = findPostsAround(postname as string);
 
-  const content = await import(`../../posts/${postname}.md`)
-  const data = matter(content.default)
+  const content = await import(`../../posts/${postname}.md`);
+  const data = matter(content.default);
 
   return {
     props: {
       frontmatter: data.data,
       markdownBody: data.content,
-      navs: navs
+      navs: navs,
     },
-  }
-}
+  };
+};
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const blogSlugs = ((context) => {
-    const keys = context.keys()
+    const keys = context.keys();
     const slugs = keys.reduce<any>((c, v) => {
-      const meta = matter(context(v).default).data
-      if (!!meta.draft) return c
-      const slug = v.replace(/^.*[\\\/]/, "").slice(0, -3)
-      c.push(slug)
-      return c
-    }, [])
-    return slugs
-  })(require.context("../../posts", true, /\.md$/))
+      const meta = matter(context(v).default).data;
+      if (!!meta.draft) return c;
+      const slug = v.replace(/^.*[\\\/]/, "").slice(0, -3);
+      c.push(slug);
+      return c;
+    }, []);
+    return slugs;
+  })(require.context("../../posts", true, /\.md$/));
 
-  const paths = blogSlugs.map((slug) => `/blog/${slug}`)
+  const paths = blogSlugs.map((slug) => `/blog/${slug}`);
 
   return {
     paths,
     fallback: false,
-  }
-}
+  };
+};
