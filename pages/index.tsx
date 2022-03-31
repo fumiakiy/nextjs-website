@@ -18,8 +18,6 @@ export default function Home() {
             <li><a href="https://github.com/fumiakiy">GitHub</a></li>
             <li><a href="https://twitter.com/fumiakiy">Twitter</a></li>
             <li><a href="/blog">Blog</a></li>
-            <li><a href="https://linkedin.com/in/fumiakiy">LinkedIn</a></li>
-            <li><a href="cv.html">CV</a></li>
           </ul>
         </div>
       </div>
