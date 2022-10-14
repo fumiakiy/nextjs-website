@@ -7,6 +7,7 @@ function Script() {
   function gtag() { dataLayer.push(arguments); }
   gtag("js", new Date());
   gtag("config", "UA-50700-3");
+  gtag('config', 'G-EQQB7LRDHC');
 
   window.twttr = (function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0],
@@ -36,6 +37,7 @@ class CustomDocument extends Document {
           <meta charSet="utf-8" />
           <meta httpEquiv="x-ua-compatible" content="ie=edge" />
           <script async src="https://www.googletagmanager.com/gtag/js?id=UA-50700-3"></script>
+          <script async src="https://www.googletagmanager.com/gtag/js?id=G-EQQB7LRDHC"></script>
           <Script />
           <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
           <link rel="alternate" type="application/atom+xml" title="Atom feed for blog by Fumiaki Yoshimatsu" href="https://luckypines.com/feed.atom" />
