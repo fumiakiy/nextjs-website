@@ -5,7 +5,7 @@ export default function Home() {
   return (<>
     <Head>
       <title>Fumiaki Yoshimatsu</title>
-      <meta name="description" content="A software engineer in NYC" />
+      <meta name="description" content="A software engineer" />
     </Head>
     <div className={styles.root}>
       <div className={styles.container}>
