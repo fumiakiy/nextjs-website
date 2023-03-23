@@ -70,13 +70,14 @@ export async function getStaticProps() {
     const data = values.reduce<any>((c, v) => {
       const document = matter(v["default"])
       if (!!document.data.draft) return c
-      c.push({
+      c[document.data.slug] = {
         frontmatter: document.data,
         markdownBody: document.content
-      })
+      }
       return c
-    }, []).sort((a, b) => b.frontmatter.epoch - a.frontmatter.epoch)
-    return data
+    }, {})
+    // @ts-ignore
+    return Object.values(data).sort((a, b) => b.frontmatter.epoch - a.frontmatter.epoch)
   })(require["context"]('../../posts', true, /\.md$/))
 
   return {
