@@ -1,5 +1,5 @@
 ---
-slug: "drivers-license-ca-dmv-20220917"
+slug: "/blog/drivers-license-ca-dmv-20220917"
 date: "Sat, 17 Sep 2022 22:06:24 GMT"
 title: "カリフォルニアで運転免許を取った"
 epoch: "1663452385"

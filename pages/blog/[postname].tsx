@@ -120,7 +120,7 @@ export default function BlogPost({ frontmatter, markdownBody, navs }) {
 
 function findPostsAround(postname: string) {
   const posts = ((context) => {
-    const keys = context.keys();
+    const keys = context.keys().filter((k) => k.startsWith("posts"));
     const values = keys.map(context);
     return values
       .reduce<any>((c, v) => {
